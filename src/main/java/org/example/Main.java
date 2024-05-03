@@ -44,9 +44,11 @@ public class Main {
         HashMap<String, String> yesterdayCondition = new HashMap<>();
         HashMap<String, String> todayCondition = new HashMap<>();
 
-        yesterdayCondition.put("/api","<HTML code1>");
-        todayCondition.put("/api/1","<HTML code2>");
-        todayCondition.put("/api","<HTML code2>");
+        yesterdayCondition.put("/api","<HTML code>");
+        yesterdayCondition.put("/api/1","<HTML code>");
+        yesterdayCondition.put("/api/2","<HTML code>");
+        todayCondition.put("/api1","<HTML code>");
+        todayCondition.put("/api/2","<HTML code123>");
 
         Scanner in = new Scanner(System.in);
         System.out.print("Введите Ваше имя: ");
@@ -54,16 +56,17 @@ public class Main {
             System.out.println("Поле с именем не должно быть пустым! Введите имя заново!");
             System.out.print("Введите Ваше имя: ");
         }
+
         System.out.print("Введите Ваше отчество: ");
         while ((patronymic = in.nextLine()).isEmpty()) {
-            System.out.println("Поле с отчеством не должно быть пустым! Введите имя заново!");
+            System.out.println("Поле с отчеством не должно быть пустым! Введите отчество заново!");
             System.out.print("Введите Ваше отчество: ");
         }
 
         Initials initials = new Initials(name,patronymic);
         LetterManager letterManager = new LetterManagerImpl();
         StatisticManager statisticManager = new StatisticManagerImpl();
-        Statistic statistic = statisticManager.getStatistics(yesterdayCondition,todayCondition);
+        Statistic statistic = statisticManager.findChanges(yesterdayCondition,todayCondition);
 
         System.out.println(letterManager.createLetter(initials,statistic));
     }

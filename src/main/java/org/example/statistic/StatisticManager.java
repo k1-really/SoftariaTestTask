@@ -5,5 +5,5 @@ import org.example.statistic.model.Statistic;
 import java.util.Map;
 
 public interface StatisticManager {
-    Statistic getStatistics(Map<String,String> yesterdayCondition, Map<String,String> todayCondition);
+    Statistic findChanges(Map<String,String> yesterdayCondition, Map<String,String> todayCondition);
 }

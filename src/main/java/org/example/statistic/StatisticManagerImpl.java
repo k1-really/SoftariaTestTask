@@ -8,44 +8,29 @@ import java.util.Set;
 
 public class StatisticManagerImpl implements StatisticManager {
 
-    private Set<String> getRemovedUrls(Map<String, String> yesterdayCondition,
-                                       Map<String, String> todayCondition) {
-        Set<String> disappearedUrls = new HashSet<>();
-        yesterdayCondition.forEach((key, value) -> {
-            if(!todayCondition.containsKey(key)) {
-                disappearedUrls.add(key);
-            }
-        });
-        return disappearedUrls;
-    }
+    @Override
+    public Statistic findChanges(Map<String, String> yesterdayCondition,
+                                  Map<String, String> todayCondition){
 
-    private Set<String> getAddedUrls(Map<String, String> yesterdayCondition,
-                                     Map<String, String> todayCondition) {
+        Set<String> updatedUrls = new HashSet<>();
         Set<String> addedUrls = new HashSet<>();
+        Set<String> removedUrls = new HashSet<>();
+
         todayCondition.forEach((key, value) -> {
+            if(yesterdayCondition.containsKey(key) && !yesterdayCondition.get(key).equals(value)) {
+                updatedUrls.add(key);
+            }
             if(!yesterdayCondition.containsKey(key)) {
                 addedUrls.add(key);
             }
         });
-        return addedUrls;
-    }
 
-    private Set<String> getChangedUrls(Map<String, String> yesterdayCondition,
-                                       Map<String, String> todayCondition) {
-        Set<String> changedUrls = new HashSet<>();
-        todayCondition.forEach((key, value) -> {
-            if(yesterdayCondition.containsKey(key) && !yesterdayCondition.get(key).equals(value)) {
-                changedUrls.add(key);
+        yesterdayCondition.forEach((key, value) -> {
+            if(!todayCondition.containsKey(key)) {
+                removedUrls.add(key);
             }
         });
-        return changedUrls;
-    }
 
-    @Override
-    public Statistic getStatistics(Map<String, String> yesterdayCondition, Map<String, String> todayCondition){
-        Set<String> addedUrls = getAddedUrls(yesterdayCondition,todayCondition);
-        Set<String> removedUrls = getRemovedUrls(yesterdayCondition,todayCondition);
-        Set<String> changedUrls = getChangedUrls(yesterdayCondition,todayCondition);
-        return new Statistic(addedUrls, removedUrls, changedUrls);
+        return new Statistic(addedUrls, removedUrls, updatedUrls);
     }
 }
