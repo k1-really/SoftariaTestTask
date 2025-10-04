@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Test task from Softaria
 There are two hash tables.
 
@@ -24,3 +25,7 @@ The following pages have changed {here is the list of urls}
 Sincerely,
 the automated system
 monitoring.
+=======
+# SoftariaTestTask
+Finding changes between 2 HashMaps.
+>>>>>>> 698af7cd66dfc50308bcf6971d16af4cfc785be3
