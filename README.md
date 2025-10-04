@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## Test task from Softaria
 There are two hash tables.
 
